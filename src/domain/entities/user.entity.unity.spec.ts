@@ -4,13 +4,17 @@ import { User } from './user.entity';
 describe('Domain > Entities > User', () => {
   describe('create', () => {
     it('should create a user when passing valid email and password', () => {
+      //Arrange
       const anEmail = 'john@doe.com';
       const aPassword = '12345678';
 
+      //Act
       const anUser = User.create({
         email: anEmail,
         password: aPassword,
       });
+
+      //Assert
       expect(anUser).toBeInstanceOf(User);
       expect(anUser.getEmail()).toBe(anEmail);
       expect(anUser.getPassword()).not.toBe(aPassword);
