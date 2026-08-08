@@ -43,4 +43,35 @@ describe('Domain > Entities > User', () => {
       expect(anError).toThrow(ValidatorDomainException);
     });
   });
+
+  describe('comparePassword', () => {
+    it('should return true when informed password matches with user password', () => {
+      const anEmail = 'john@doe.com';
+      const aPassword = '12345678';
+
+      const anUser = User.create({
+        email: anEmail,
+        password: aPassword,
+      });
+      expect(anUser.getPassword()).not.toBe(aPassword);
+
+      expect(anUser.comparePassword(aPassword)).toBe(true);
+    });
+
+    it('should return false when informed password does not match with user password', () => {
+      const anEmail = 'john@doe.com';
+      const aPassword = '12345678';
+
+      const anUser = User.create({
+        email: anEmail,
+        password: aPassword,
+      });
+
+      expect(anUser.getPassword()).not.toBe(aPassword);
+
+      const isPasswordValid = anUser.comparePassword('wrong-password');
+
+      expect(isPasswordValid).toBe(false);
+    });
+  });
 });
