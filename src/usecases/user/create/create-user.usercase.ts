@@ -1,6 +1,6 @@
 import { User } from 'src/domain/entities/user.entity';
 import { UserGateway } from 'src/domain/repositories/user.gateway';
-import { EmailAlreadyExistsUseCaseException } from 'src/shared/exceptions/email-already-exists.usecase.exception';
+import { EmailAlreadyExistsUseCaseException } from 'src/usecases/exceptions/email-already-exists.usecase.exception';
 import { UseCase } from 'src/usecases/usecase';
 
 export type CreateUserInput = {
