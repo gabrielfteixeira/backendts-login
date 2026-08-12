@@ -1,7 +1,6 @@
 import { UserGateway } from 'src/domain/repositories/user.gateway';
 import { JwtService } from 'src/infra/services/jwt/jwt.service';
 import { CredentialsNotValidUseCaseException } from 'src/usecases/exceptions/credentials-not-valid.usecase.exception';
-import { UserNotFoundUseCaseException } from 'src/usecases/exceptions/user-not-found.usecase.exception';
 import { UseCase } from 'src/usecases/usecase';
 
 export type LoginInput = {
@@ -10,7 +9,7 @@ export type LoginInput = {
 };
 
 export type LoginOutput = {
-  accessToken: string;
+  generateAuthToken: string;
   refreshToken: string;
 };
 
@@ -38,5 +37,17 @@ export class LoginUserUseCase implements UseCase<LoginInput, LoginOutput> {
         CredentialsNotValidUseCaseException.name,
       );
     }
+
+    const generateAuthToken = await this.jwtService.generateAuthToken(
+      anUser.getId(),
+    );
+
+    const refreshToken = await this.jwtService.generateRefreshToken(
+      anUser.getId(),
+    );
+
+    const output: LoginOutput = { generateAuthToken, refreshToken };
+
+    return output;
   }
 }
