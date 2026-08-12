@@ -1,12 +1,12 @@
 import { Exception } from 'src/shared/exceptions/exception';
 
-export class UseCaseException extends Exception {
+export class CredentialsNotValidUseCaseException extends Exception {
   public constructor(
     internalMessage: string,
     externalMessage: string,
     context: string,
   ) {
     super(internalMessage, externalMessage, context);
-    this.name = UseCaseException.name;
+    this.name = CredentialsNotValidUseCaseException.name;
   }
 }
